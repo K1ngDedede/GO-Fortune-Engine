@@ -176,6 +176,7 @@ func sendFile(c client, chanName string, fileName string, fileSize int) {
 		c.connection.Write([]byte("nochan\n"))
 		log.Println("No channel " + chanName)
 	} else {
+		//Se autoriza el cliente para cargar el archivo
 		c.connection.Write([]byte("chan\n"))
 		log.Println("Authorized client " + c.Cname + " for loading.")
 		//Se lee el archivo enviado por el cliente

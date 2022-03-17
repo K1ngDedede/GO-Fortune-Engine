@@ -21,8 +21,6 @@ async function fetchData(){
   
 }
 
-
-
 function nochan(channel: string){
   if(chandata.value && Object.keys(chandata.value[channel]).length !=0){
     return false
@@ -30,6 +28,7 @@ function nochan(channel: string){
     return true
   }
 }
+
 
 function onlineClients(){
   let c = []
@@ -43,7 +42,14 @@ function onlineClients(){
   return c
 }
 
-
+function nofiles(){
+  let c: null | any = files.value
+  if(c && c.length!=0){
+    return false
+  }else{
+    return true
+  }
+}
 
 </script>
 
@@ -61,7 +67,7 @@ function onlineClients(){
     <br>
     <br>
     <h2>File Log</h2>
-      <table>
+      <table v-if="!nofiles()">
         <tr>
           <th>
             Filename
@@ -103,12 +109,20 @@ function onlineClients(){
           </td>
         </tr>
       </table>
+      <div v-else>
+        No files have been transferred.
+      </div>
   </div>
   
   <main class="debug">    
     <div>
       <h2>Online Clients</h2>
-      {{onlineClients()}}
+      <div v-if="onlineClients().length!=0">
+        {{onlineClients()}}
+      </div>
+      <div v-else>
+        No clients online.
+      </div>
       <br>
       <br>
       <br>
